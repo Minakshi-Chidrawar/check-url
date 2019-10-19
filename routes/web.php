@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('home', ['as' => 'checkURL', 'uses' =>'CheckURLController@checkUrl']);
+Route::post('home', ['as' => 'checkURL.store', 'uses' =>'CheckURLController@store']);
