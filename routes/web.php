@@ -11,5 +11,7 @@
 |
 */
 
+Route::get('/{slug}',  ['as' => 'getURL', 'uses' =>'CheckURLController@redirectUrl']);
+
 Route::get('home', ['as' => 'checkURL', 'uses' =>'CheckURLController@checkUrl']);
 Route::post('home', ['as' => 'checkURL.store', 'uses' =>'CheckURLController@store']);
