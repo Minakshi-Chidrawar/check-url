@@ -25,7 +25,7 @@
                         <form action="home" method="POST" class="pb-5">
                         @csrf
                             <div class="input-group">
-                                <input type="text" name="url" id="url">
+                                <input type="url" name="url" id="url" required>
                             </div>
 
                             <button type="submit">Check</button>

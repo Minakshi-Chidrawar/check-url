@@ -64,6 +64,10 @@
         </style>
     </head>
     <body>
+    <a href="{{url()->current()}}">{{url()->current()}}</a>
+        @if (request()->is('/'))
+            <p>Is homepage</p>
+        @endif
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
