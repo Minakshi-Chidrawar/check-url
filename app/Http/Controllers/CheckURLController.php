@@ -27,7 +27,7 @@ class CheckURLController extends Controller
             $this->insertUrlintoTable($request->url, $random);
             $shortenUrl = url('/') . '/' . $random;
 
-            $message = "Shorten URL is $shortenUrl";
+            $message = $shortenUrl;
         }
 
         return view('checkUrl.home', compact('message'));
@@ -126,3 +126,6 @@ class CheckURLController extends Controller
         ]);
     }
 }
+
+// run npm install clipboard --save
+// add  <script src="dist/clipboard.min.js"></script>
