@@ -19,15 +19,23 @@ class CheckURLController extends Controller
             'url' => 'required|URL'
         ]);
 
-        $message = $this->Visit($request->url);
+        $url = $request->url;
+        $message = $this->Visit($url);
 
         if ((strpos($message, 'not') === 0) || (!strpos($message, 'not')))
         {
-            $random = Str::random(25);
-            $this->insertUrlintoTable($request->url, $random);
-            $shortenUrl = url('/') . '/' . $random;
+            $random = ShortUrl::where('url', $url)->first();
 
-            $message = $shortenUrl;
+            if ($random->shortCode !== '')
+            {
+                $message = url('/') . '/' . $random->shortCode;
+                return view('checkUrl.home', compact('message')); 
+            }
+
+            $random = Str::random(25);
+            $this->insertUrlintoTable($url, $random);
+
+            $message = url('/') . '/' . $random;
         }
 
         return view('checkUrl.home', compact('message'));
