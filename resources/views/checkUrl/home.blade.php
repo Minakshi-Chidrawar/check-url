@@ -22,7 +22,7 @@
                     <div class="jumbotron bg-blue">
                         @if(!empty($message))
                             <div class="row">
-                                <div class="col-10">
+                                <div class="col-9">
                                     <div class="input-group input-group-lg">
                                         <input class="form-control" id="disabledInput" type="text" value="{{ $message }}">
                                     </div>
@@ -37,7 +37,7 @@
                                 <div class="row" id ="divTest">
                                     <div class="col-9">
                                         <div class="input-group input-group-lg">
-                                            <input type="url" name="url" id="url" placeholder="Shorten your link" class="form-control" autocomplete="off" required>
+                                            <input type="url" name="url" id="url" value="{{ Request::old('url') }}" placeholder="Shorten your link" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-3">
@@ -45,6 +45,12 @@
                                     </div>
                                 </div>
                             </form>
+                            @if ($message = Session::get('error'))
+                                <div class="alert alert-danger alert-block">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>	
+                                        <strong>{!! $message !!}</strong>
+                                </div>
+                            @endif
                         @endif
                     </div>
                 </div>
@@ -60,6 +66,8 @@
                 copyText.setSelectionRange(0, 99999);
                 document.execCommand('copy');
             }
+
+            //window.location = "{{ url('/') }}";
         </script>
     </body>
 </html>
