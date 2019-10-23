@@ -20,23 +20,13 @@ class CheckURLController extends Controller
         ]);
 
         $url = $request->url;
-        $message = $this->Visit($url);
-
-        if ((strpos($message, 'not') === 0) || (!strpos($message, 'not')))
+        $splitUrl = parse_url($url);
+        if (strPos(url('/'), $splitUrl['host']))
         {
-            $random = ShortUrl::where('url', $url)->first();
-
-            if ($random->shortCode !== '')
-            {
-                $message = url('/') . '/' . $random->shortCode;
-                return view('checkUrl.home', compact('message')); 
-            }
-
-            $random = Str::random(25);
-            $this->insertUrlintoTable($url, $random);
-
-            $message = url('/') . '/' . $random;
+            return back()->with('error', "This is already shortened URL with our database <br> $url");
         }
+
+        $message =  $this->checkForTable($url);
 
         return view('checkUrl.home', compact('message'));
     }
@@ -58,71 +48,36 @@ class CheckURLController extends Controller
         {
             abort(404,'Page not found');;
         }
-        //dd($redirectUrl);
 
         return redirect($redirectUrl->url);
     }
 
-    //returns true, if domain is availible, false if not
-    public function Visit($url)
+    public function checkForTable($url)
     {
-        if(!($this->isValidURL($url)))
-        {
-            return "Please provide a valid URL";
-        }
-
-        $splitUrl = parse_url($url);
-        $protocol = $splitUrl['scheme'] ?? '';
-        $protocol = $protocol ? $protocol . "://" : '';
-        $host = $splitUrl['host'] ?? '';
-        $path = $splitUrl['path'] ?? '';
-
-
-        $robots = $protocol . $host .'/robots.txt';
-        $exists   = false;
+        $random = $this->checkUrlExistInTable($url);
+        $random = ((isset($random)) ? $random : $this->addUrlToTable($url));
         
-        if (!$exists && in_array('curl', get_loaded_extensions())) {
-            
-            $ch = curl_init();   
-             
-            curl_setopt($ch, CURLOPT_URL, $robots);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_TIMEOUT_MS, 2000);
-            curl_exec($ch);
-
-            $response = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            if ($response === 200)
-            {
-                $exists = true;
-                return "$url does appear to exist.";
-            }            
-            curl_close($ch);            
-        }
-        
-        if (!$exists && function_exists('get_headers'))
-        {            
-            if(is_array(@get_headers($robots)))
-            {
-                return "$url does appear to exist.";
-            }         
-        }
-
-        return "$url does not appear to exist.";
+        return  url('/') . '/' . $random;
     }
 
-    public function isValidURL($url)
+    public function addUrlToTable($url)
     {
-        // Remove all illegal characters from a url
-        $url = filter_var($url, FILTER_SANITIZE_URL);
+        $random = Str::random(25);
+        $this->insertUrlintoTable($url, $random);
 
-        // Validate url
-        if (filter_var($url, FILTER_VALIDATE_URL)) {
-            return true;
-        } else {
-            return false;
+        return $random;
+    }
+
+    public function checkUrlExistInTable($url)
+    {
+        $code = ShortUrl::select('shortCode')->where('url', $url)->first();
+
+        if (!isset($code))
+        {
+            return null;
         }
+        
+        return $code->shortCode;
     }
 
     public function insertUrlintoTable($url, $random)
