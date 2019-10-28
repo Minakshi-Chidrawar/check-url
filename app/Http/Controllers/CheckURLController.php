@@ -62,7 +62,7 @@ class CheckURLController extends Controller
 
     public function addUrlToTable($url)
     {
-        $random = Str::random(25);
+        $random = Str::random(10);
         $this->insertUrlintoTable($url, $random);
 
         return $random;
