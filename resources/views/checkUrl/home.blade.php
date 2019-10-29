@@ -20,7 +20,7 @@
                 <h1 class="d-flex ml-3 text-left h-100">Shorten URL</h1>
                 <div class=" d-flex justify-content-center h-100">
                     <div class="row align-items-center w-100">
-                        <div class="col-12 mx-auto">
+                        <div class="col-12 m-auto">
                             <div class="jumbotron bg-blue">
                                 @if(!empty($message))
                                     <div class="row">
@@ -30,7 +30,7 @@
                                             </div>
                                         </div>
                                         <div class="col-3">
-                                            <button onclick="copyFunction()" class="btn btn-primary btn-lg" id="copy">Copy</button>
+                                            <button onclick="copyFunction()" class="btn btn-primary btn-lg btn-block" id="copy">Copy</button>
                                         </div>
                                     </div>
                                 @else
@@ -43,7 +43,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-3">
-                                                <button type="submit" id="shorten" class="btn btn-primary btn-lg">Shorten</button>
+                                                <button type="submit" id="shorten" class="btn btn-primary btn-lg btn-block">Shorten</button>
                                             </div>
                                         </div>
                                     </form>
