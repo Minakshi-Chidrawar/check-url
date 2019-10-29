@@ -30,7 +30,7 @@
                                             </div>
                                         </div>
                                         <div class="col-3">
-                                            <button onclick="copyFunction()" class="btn btn-primary btn-lg">Copy</button>
+                                            <button onclick="copyFunction()" class="btn btn-primary btn-lg" id="copy">Copy</button>
                                         </div>
                                     </div>
                                 @else
