@@ -46,7 +46,7 @@ class CheckURLController extends Controller
 
         if (!$redirectUrl)
         {
-            abort(404,'Page not found');;
+            abort(404,'Page not found');
         }
 
         return redirect($redirectUrl->url);
@@ -70,9 +70,27 @@ class CheckURLController extends Controller
 
     public function populateRandomString()
     {
-        $random = Str::random(10);
-        
-        return $randomString;
+        $randomString = Str::random(8);
+        $this->shortCodeExistsInTable($randomString);
+
+        if ($this->shortCodeExistsInTable($randomString))
+        {
+            return $randomString;
+        }
+
+        $this->populateRandomString();
+    }
+
+    public function shortCodeExistsInTable($randomString)
+    {
+        $shortCode = ShortUrl::select('shortCode')->where('shortCode', $randomString)->first();
+
+        if (!isset($shortCode))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public function checkUrlExistInTable($url)
