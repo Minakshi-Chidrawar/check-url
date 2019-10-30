@@ -6,13 +6,7 @@
 
         <title>Laravel</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+        @include('partials.headLink')
     </head>
     <body>
         <div style="margin-top: 15%;">        
@@ -34,19 +28,7 @@
                                         </div>
                                     </div>
                                 @else
-                                    <form action="/" method="POST" id="InputUrl" autocomplete="off">
-                                        @csrf
-                                        <div class="row" id ="divTest">
-                                            <div class="col-9">
-                                                <div class="input-group input-group-lg">
-                                                    <input type="url" name="url" id="url" value="{{ Request::old('url') }}" placeholder="Shorten your link" class="form-control" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-3">
-                                                <button type="submit" id="shorten" class="btn btn-primary btn-lg btn-block">Shorten</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    @include('partials.shortenForm')
                                     @if ($message = Session::get('error'))
                                         <div class="alert alert-danger alert-block mt-3">
                                             <button type="button" class="close" data-dismiss="alert">×</button>	
@@ -69,8 +51,6 @@
                 copyText.setSelectionRange(0, 99999);
                 document.execCommand('copy');
             }
-
-            //window.location = "{{ url('/') }}";
         </script>
     </body>
 </html>
