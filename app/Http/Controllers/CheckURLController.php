@@ -114,6 +114,3 @@ class CheckURLController extends Controller
         ]);
     }
 }
-
-// run npm install clipboard --save
-// add  <script src="dist/clipboard.min.js"></script>
