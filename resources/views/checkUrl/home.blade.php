@@ -24,7 +24,7 @@
                                             </div>
                                         </div>
                                         <div class="col-3">
-                                            <button onclick="copyFunction()" class="btn btn-primary btn-lg btn-block" id="copy">Copy</button>
+                                            <button onclick="copyFunction()" class="btn btn-primary btn-lg btn-block" id="copyButton">Copy</button>
                                         </div>
                                     </div>
                                 @else
@@ -51,6 +51,13 @@
                 copyText.setSelectionRange(0, 99999);
                 document.execCommand('copy');
             }
+
+            $(document).ready(function()
+            { 
+                $('#copyButton').on('click', function() { 
+                    $('#copyButton').text('Copied!');
+                }); 
+            });
         </script>
     </body>
 </html>
