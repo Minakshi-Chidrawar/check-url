@@ -56,6 +56,11 @@
             { 
                 $('#copyButton').on('click', function() { 
                     $('#copyButton').text('Copied!');
+                    $('#copyButton').addClass('btn-success').delay(800).queue(function(next){
+                        $(this).removeClass('btn-success');
+                        $(this).text('Copy');
+                        next();
+                    });
                 }); 
             });
         </script>
