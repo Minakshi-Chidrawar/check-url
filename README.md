@@ -18,4 +18,4 @@ You can setup this sample manually or use [Vagrant](https://www.vagrantup.com/) 
 ### After shorten URL:
 ![Log](https://github.com/Minakshi-Chidrawar/check-url/blob/master/images/shorten.png)  
 
-If you click the **Copy** button, it will be copied to the clipborad
+If you click the **Copy** button, the shortened URL will be copied to the clipborad
