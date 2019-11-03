@@ -11,3 +11,11 @@ You can setup this sample manually or use [Vagrant](https://www.vagrantup.com/) 
   * ```php artisan migrate```
 * Server: run ```php artisan serve```
 * Browse to localhost:8000
+
+### The page looks:
+![Log](https://github.com/Minakshi-Chidrawar/check-url/blob/master/images/main.png)  
+
+### After shorten URL:
+![Log](https://github.com/Minakshi-Chidrawar/check-url/blob/master/images/shorten.png)  
+
+If you click the **Copy** button, it will be copied to the clipborad
